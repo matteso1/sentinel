@@ -18,10 +18,10 @@
             --bg: #0a0a0a;
             --bg-code: #0d0d0d;
             --green: #00ff00;
-            --green-dim: #00aa00;
+            --green-dim: #00cc00;
             --green-muted: #006600;
             --white: #e0e0e0;
-            --gray: #808080;
+            --gray: #888888;
             --dark-gray: #333333;
             --border: #1a1a1a;
         }
@@ -36,12 +36,12 @@
             font-family: 'JetBrains Mono', monospace;
             background: var(--bg);
             color: var(--white);
-            line-height: 1.7;
+            line-height: 1.8;
             font-size: 14px;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 0 24px;
         }
@@ -64,8 +64,7 @@
 
         .nav-links {
             display: flex;
-            gap: 32px;
-            align-items: center;
+            gap: 24px;
         }
 
         .nav-links a {
@@ -80,33 +79,29 @@
 
         /* Hero */
         .hero {
-            padding: 80px 0 60px;
+            padding: 60px 0 40px;
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--green);
-            margin-bottom: 24px;
-            line-height: 1.3;
+            margin-bottom: 20px;
         }
 
-        .hero p {
+        .hero>p {
             color: var(--gray);
-            font-size: 0.95rem;
-            margin-bottom: 32px;
-            max-width: 700px;
+            margin-bottom: 24px;
         }
 
         .hero-links {
             display: flex;
-            gap: 24px;
+            gap: 20px;
         }
 
         .hero-links a {
             color: var(--green);
             text-decoration: none;
-            font-size: 0.9rem;
         }
 
         .hero-links a:hover {
@@ -116,42 +111,42 @@
         /* Stats */
         .stats {
             display: flex;
-            gap: 48px;
-            padding: 40px 0;
+            gap: 40px;
+            padding: 32px 0;
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
         }
 
         .stat-value {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: var(--green);
         }
 
         .stat-label {
             color: var(--gray);
-            font-size: 0.8rem;
-            margin-top: 4px;
+            font-size: 0.75rem;
+            margin-top: 2px;
         }
 
         /* Sections */
         section {
-            padding: 60px 0;
+            padding: 48px 0;
             border-bottom: 1px solid var(--border);
         }
 
         h2 {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             color: var(--white);
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         h3 {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            color: var(--green);
-            margin: 32px 0 16px;
+            color: var(--green-dim);
+            margin: 28px 0 12px;
         }
 
         p {
@@ -159,12 +154,44 @@
             margin-bottom: 16px;
         }
 
+        /* Plain English Section */
+        .plain-english {
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .plain-english h3 {
+            margin-top: 0;
+            color: var(--green);
+        }
+
+        .qa {
+            margin-bottom: 20px;
+        }
+
+        .qa:last-child {
+            margin-bottom: 0;
+        }
+
+        .qa-q {
+            color: var(--white);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .qa-a {
+            color: var(--gray);
+            margin: 0;
+        }
+
         /* Mermaid Diagrams */
         .diagram {
             background: var(--bg-code);
             border: 1px solid var(--border);
-            padding: 32px;
-            margin: 24px 0;
+            padding: 24px;
+            margin: 20px 0;
             overflow-x: auto;
         }
 
@@ -177,22 +204,21 @@
         .code-block {
             background: var(--bg-code);
             border: 1px solid var(--border);
-            margin: 24px 0;
-            overflow: hidden;
+            margin: 20px 0;
         }
 
         .code-header {
-            padding: 12px 16px;
+            padding: 10px 16px;
             border-bottom: 1px solid var(--border);
             color: var(--gray);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
         }
 
         pre {
-            padding: 20px;
+            padding: 16px;
             overflow-x: auto;
-            font-size: 0.85rem;
-            line-height: 1.8;
+            font-size: 0.8rem;
+            line-height: 1.7;
         }
 
         .comment {
@@ -207,49 +233,14 @@
             color: var(--white);
         }
 
-        .string {
-            color: #98c379;
-        }
-
         .output {
             color: var(--gray);
         }
 
-        /* Feature List */
-        .features {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-
-        .feature {
-            padding: 20px;
-            border: 1px solid var(--border);
-        }
-
-        .feature h4 {
-            color: var(--white);
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .feature p {
-            font-size: 0.8rem;
-            margin: 0;
-        }
-
-        /* Components List */
-        .components {
-            font-size: 0.85rem;
-        }
-
+        /* Components - Fixed Layout */
         .component {
             padding: 16px 0;
             border-bottom: 1px solid var(--border);
-            display: grid;
-            grid-template-columns: 200px 1fr;
-            gap: 24px;
         }
 
         .component:last-child {
@@ -259,19 +250,24 @@
         .component-name {
             color: var(--green);
             font-weight: 600;
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 6px;
         }
 
         .component-desc {
             color: var(--gray);
+            font-size: 0.8rem;
+            display: block;
         }
 
         /* Footer */
         footer {
-            padding: 40px 0;
+            padding: 32px 0;
             display: flex;
             justify-content: space-between;
             color: var(--gray);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
 
         footer a {
@@ -285,26 +281,17 @@
 
         .footer-links {
             display: flex;
-            gap: 24px;
+            gap: 20px;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
             .nav-links {
                 display: none;
             }
 
             .stats {
                 flex-wrap: wrap;
-                gap: 24px;
-            }
-
-            .features {
-                grid-template-columns: 1fr;
-            }
-
-            .component {
-                grid-template-columns: 1fr;
-                gap: 8px;
+                gap: 20px;
             }
         }
     </style>
@@ -315,23 +302,22 @@
         <nav>
             <a href="#" class="logo">sentinel</a>
             <div class="nav-links">
-                <a href="#architecture">architecture</a>
-                <a href="#components">components</a>
-                <a href="#quickstart">quickstart</a>
-                <a href="https://github.com/matteso1/sentinel" target="_blank">github</a>
+                <a href="#what">what is this</a>
+                <a href="#how">how it works</a>
+                <a href="#code">code</a>
+                <a href="https://github.com/matteso1/sentinel">github</a>
             </div>
         </nav>
 
         <section class="hero">
-            <h1>Distributed log streaming engine.</h1>
+            <h1>A message queue I built from scratch.</h1>
             <p>
-                A high-throughput message queue built from scratch in Go. Custom LSM-tree
-                storage engine, Raft-inspired consensus, gRPC streaming API. Kafka-style
-                semantics without the JVM complexity.
+                5,600 lines of Go. Custom storage engine, consensus algorithm,
+                streaming API. No dependencies on Kafka or ZooKeeper.
             </p>
             <div class="hero-links">
-                <a href="https://github.com/matteso1/sentinel">→ source code</a>
-                <a href="https://github.com/matteso1/sentinel/blob/main/README.md">→ documentation</a>
+                <a href="https://github.com/matteso1/sentinel">→ view source</a>
+                <a href="https://github.com/matteso1/sentinel/blob/main/README.md">→ read docs</a>
             </div>
         </section>
 
@@ -346,7 +332,7 @@
             </div>
             <div>
                 <div class="stat-value">5,600+</div>
-                <div class="stat-label">lines of Go</div>
+                <div class="stat-label">lines</div>
             </div>
             <div>
                 <div class="stat-value">21</div>
@@ -354,12 +340,49 @@
             </div>
         </div>
 
-        <section id="architecture">
-            <h2>Architecture</h2>
+        <section id="what">
+            <h2>What is this, in plain English?</h2>
+
+            <div class="plain-english">
+                <div class="qa">
+                    <div class="qa-q">What does it do?</div>
+                    <p class="qa-a">It passes messages between different parts of an application. App A sends a message,
+                        App B receives it later. The messages are stored durably in between.</p>
+                </div>
+
+                <div class="qa">
+                    <div class="qa-q">Why would I need this?</div>
+                    <p class="qa-a">When you have multiple services that need to communicate. Instead of Service A
+                        calling Service B directly (and failing if B is down), A drops a message in the queue and moves
+                        on. B picks it up when it's ready.</p>
+                </div>
+
+                <div class="qa">
+                    <div class="qa-q">How is this different from Kafka?</div>
+                    <p class="qa-a">Kafka requires Java, ZooKeeper, and a lot of configuration. This is one Go binary
+                        with two command line flags. Same concepts, simpler to run.</p>
+                </div>
+
+                <div class="qa">
+                    <div class="qa-q">Is this production-ready?</div>
+                    <p class="qa-a">It's a portfolio project demonstrating distributed systems concepts. The code works
+                        and passes tests, but it hasn't been battle-tested at scale like Kafka has.</p>
+                </div>
+
+                <div class="qa">
+                    <div class="qa-q">What did you actually build here?</div>
+                    <p class="qa-a">Everything from scratch: the storage engine (how data is written to disk
+                        efficiently), the consensus algorithm (how multiple servers agree on data), the network protocol
+                        (how clients talk to servers). No copy-paste from existing projects.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="how">
+            <h2>How it works</h2>
             <p>
-                Producers send records to topic partitions. The broker persists data
-                through an LSM-tree storage engine and replicates via Raft consensus.
-                Consumers read from partitions at their own pace.
+                Producers send records. The broker stores them durably and replicates
+                to followers. Consumers read at their own pace.
             </p>
 
             <div class="diagram">
@@ -367,168 +390,133 @@
 graph LR
     P[Producer] --> B[Broker]
     B --> C[Consumer]
-    B --> S[LSM Storage]
+    B --> S[Storage]
     S --> WAL[Write-Ahead Log]
     S --> MT[MemTable]
     MT --> SST[SSTables]
                 </pre>
             </div>
 
-            <h3>Write Path</h3>
+            <h3>The storage engine</h3>
             <p>
-                Records are first written to a write-ahead log for durability, then
-                inserted into an in-memory skip list. Background compaction flushes
-                data to immutable SSTables on disk.
+                When you write data, it goes to a write-ahead log first (so we don't
+                lose it if the server crashes), then into memory (for fast reads).
+                A background process periodically flushes memory to disk as sorted files.
             </p>
 
             <div class="diagram">
                 <pre class="mermaid">
 sequenceDiagram
-    participant Client
-    participant Broker
-    participant WAL
-    participant MemTable
-    participant SSTable
-
-    Client->>Broker: Produce(topic, records)
-    Broker->>WAL: Append(entry)
-    WAL-->>Broker: Success
-    Broker->>MemTable: Put(key, value)
-    Note over MemTable: Skip list O(log n)
-    MemTable-->>Broker: Offset
-    Broker-->>Client: ProduceResponse
-
-    Note over MemTable,SSTable: Background flush
-    MemTable->>SSTable: Flush when full
+    Client->>Broker: write("order:123")
+    Broker->>WAL: append to log file
+    Broker->>MemTable: insert in memory
+    Broker-->>Client: ok, offset=42
+    Note over MemTable: background flush
+    MemTable->>SSTable: write sorted file to disk
                 </pre>
             </div>
 
-            <h3>Raft Consensus</h3>
+            <h3>Leader election</h3>
             <p>
-                Leader election uses randomized timeouts to prevent split-brain.
-                Log entries replicate via AppendEntries RPC. Commits advance after
-                majority acknowledgment.
+                If you run multiple servers, one becomes the leader and handles writes.
+                If the leader dies, the others vote and pick a new one. This is based
+                on the Raft algorithm.
             </p>
 
             <div class="diagram">
                 <pre class="mermaid">
 stateDiagram-v2
     [*] --> Follower
-    Follower --> Candidate: Election timeout
-    Candidate --> Leader: Majority votes
-    Candidate --> Follower: Higher term discovered
-    Leader --> Follower: Higher term discovered
-    Leader --> Leader: Heartbeats
+    Follower --> Candidate: timeout, no heartbeat
+    Candidate --> Leader: got majority votes
+    Candidate --> Follower: someone else won
+    Leader --> Follower: found higher term
                 </pre>
             </div>
         </section>
 
-        <section id="components">
-            <h2>Components</h2>
+        <section id="code">
+            <h2>The code</h2>
+            <p>
+                Here's what each file does. Everything is in the internal/ directory.
+            </p>
 
-            <div class="components">
-                <div class="component">
-                    <span class="component-name">internal/storage/skiplist.go</span>
-                    <span class="component-desc">O(log n) concurrent skip list with RWMutex. XorShift64 PRNG for level
-                        generation.</span>
-                </div>
-                <div class="component">
-                    <span class="component-name">internal/storage/wal.go</span>
-                    <span class="component-desc">Write-ahead log with CRC32 checksums. Configurable sync modes. Crash
-                        recovery.</span>
-                </div>
-                <div class="component">
-                    <span class="component-name">internal/storage/sstable.go</span>
-                    <span class="component-desc">Block-based sorted string tables. Binary search index. Key range
-                        tracking.</span>
-                </div>
-                <div class="component">
-                    <span class="component-name">internal/storage/lsm.go</span>
-                    <span class="component-desc">LSM coordinator. Memtable rotation, background flush, multi-level
-                        storage.</span>
-                </div>
-                <div class="component">
-                    <span class="component-name">internal/broker/broker.go</span>
-                    <span class="component-desc">Topic/partition management. Produce and consume operations. Persistence
-                        layer.</span>
-                </div>
-                <div class="component">
-                    <span class="component-name">internal/broker/consumer_group.go</span>
-                    <span class="component-desc">Round-robin partition assignment. Offset tracking. Heartbeat and
-                        rebalancing.</span>
-                </div>
-                <div class="component">
-                    <span class="component-name">internal/raft/node.go</span>
-                    <span class="component-desc">Raft state machine. Follower/Candidate/Leader states. Election
-                        timer.</span>
-                </div>
-                <div class="component">
-                    <span class="component-name">internal/raft/replication.go</span>
-                    <span class="component-desc">AppendEntries RPC. Conflict detection. Commit index advancement.</span>
-                </div>
-                <div class="component">
-                    <span class="component-name">internal/server/grpc_server.go</span>
-                    <span class="component-desc">Protobuf service. Produce, Consume (streaming), FetchMetadata
-                        RPCs.</span>
-                </div>
-                <div class="component">
-                    <span class="component-name">internal/metrics/prometheus.go</span>
-                    <span class="component-desc">Counters, gauges, latency tracking. /metrics endpoint for
-                        Prometheus.</span>
-                </div>
+            <div class="component">
+                <span class="component-name">storage/skiplist.go</span>
+                <span class="component-desc">In-memory sorted data structure. O(log n) inserts and lookups. Uses a
+                    random number generator to decide node heights.</span>
             </div>
-        </section>
 
-        <section id="quickstart">
-            <h2>Quick Start</h2>
+            <div class="component">
+                <span class="component-name">storage/wal.go</span>
+                <span class="component-desc">Write-ahead log for crash recovery. Every write goes here first. Includes
+                    checksums to detect corruption.</span>
+            </div>
 
+            <div class="component">
+                <span class="component-name">storage/sstable.go</span>
+                <span class="component-desc">On-disk sorted files. Data is written in blocks with an index for fast
+                    lookups.</span>
+            </div>
+
+            <div class="component">
+                <span class="component-name">storage/lsm.go</span>
+                <span class="component-desc">Coordinates the storage engine. Manages memtable rotation and background
+                    flushes.</span>
+            </div>
+
+            <div class="component">
+                <span class="component-name">broker/broker.go</span>
+                <span class="component-desc">Topic and partition management. Routes produce/consume requests to the
+                    right place.</span>
+            </div>
+
+            <div class="component">
+                <span class="component-name">broker/consumer_group.go</span>
+                <span class="component-desc">Assigns partitions to consumers. Tracks who has read what.</span>
+            </div>
+
+            <div class="component">
+                <span class="component-name">raft/node.go</span>
+                <span class="component-desc">The state machine for consensus. Handles transitions between follower,
+                    candidate, and leader.</span>
+            </div>
+
+            <div class="component">
+                <span class="component-name">raft/replication.go</span>
+                <span class="component-desc">How leaders send data to followers. Handles conflicts and retries.</span>
+            </div>
+
+            <div class="component">
+                <span class="component-name">server/grpc_server.go</span>
+                <span class="component-desc">The network layer. Accepts produce and consume requests over gRPC.</span>
+            </div>
+
+            <div class="component">
+                <span class="component-name">metrics/prometheus.go</span>
+                <span class="component-desc">Exposes stats like throughput and latency for monitoring.</span>
+            </div>
+
+            <h3>Try it</h3>
             <div class="code-block">
                 <div class="code-header">terminal</div>
-                <pre><code><span class="comment"># clone</span>
-<span class="cmd">git clone</span> <span class="arg">https://github.com/matteso1/sentinel.git</span>
-<span class="cmd">cd</span> <span class="arg">sentinel</span>
+                <pre><code><span class="comment"># start server</span>
+<span class="cmd">go run</span> <span class="arg">./cmd/sentinel-server --port 9092</span>
 
-<span class="comment"># start server</span>
-<span class="cmd">go run</span> <span class="arg">./cmd/sentinel-server --port 9092 --data ./data</span>
-<span class="output"># Sentinel server listening on port 9092</span>
+<span class="comment"># send some messages</span>
+<span class="cmd">go run</span> <span class="arg">./cmd/sentinel-cli produce -topic test -message "hello" -count 100</span>
+<span class="output"># ✓ Produced 100 record(s) to test</span>
 
-<span class="comment"># produce</span>
-<span class="cmd">go run</span> <span class="arg">./cmd/sentinel-cli produce -topic orders -message "order:123" -count 100</span>
-<span class="output"># ✓ Produced 100 record(s) to orders (offset: 0)</span>
-
-<span class="comment"># consume</span>
-<span class="cmd">go run</span> <span class="arg">./cmd/sentinel-cli consume -topic orders -from-beginning</span>
-<span class="output"># offset=0 | key=(null) | value=order:123-0</span>
-<span class="output"># offset=1 | key=(null) | value=order:123-1</span>
+<span class="comment"># read them back</span>
+<span class="cmd">go run</span> <span class="arg">./cmd/sentinel-cli consume -topic test -from-beginning</span>
+<span class="output"># offset=0 | value=hello-0</span>
+<span class="output"># offset=1 | value=hello-1</span>
 <span class="output"># ...</span></code></pre>
-            </div>
-
-            <h3>Run Tests</h3>
-            <div class="code-block">
-                <div class="code-header">terminal</div>
-                <pre><code><span class="cmd">go test</span> <span class="arg">-v ./...</span>
-<span class="output"># === RUN   TestSkipList_BasicOperations</span>
-<span class="output"># --- PASS: TestSkipList_BasicOperations (0.00s)</span>
-<span class="output"># === RUN   TestBroker_ProduceConsume</span>
-<span class="output"># --- PASS: TestBroker_ProduceConsume (0.17s)</span>
-<span class="output"># === RUN   TestNode_BecomesLeaderWithNoPeers</span>
-<span class="output"># --- PASS: TestNode_BecomesLeaderWithNoPeers (0.20s)</span>
-<span class="output"># ...</span>
-<span class="output"># PASS</span>
-<span class="output"># ok  github.com/matteso1/sentinel</span></code></pre>
-            </div>
-
-            <h3>Benchmarks</h3>
-            <div class="code-block">
-                <div class="code-header">terminal</div>
-                <pre><code><span class="cmd">go test</span> <span class="arg">-bench=. ./internal/storage/...</span>
-<span class="output"># BenchmarkSkipList_Put-32    1684428    594.9 ns/op   (1.7M ops/sec)</span>
-<span class="output"># BenchmarkSkipList_Get-32    3882814    257.5 ns/op   (3.9M ops/sec)</span></code></pre>
             </div>
         </section>
 
         <footer>
-            <div>Built by <a href="https://nilsmatteson.com" target="_blank">Nils Matteson</a></div>
+            <div>Built by <a href="https://nilsmatteson.com">Nils Matteson</a></div>
             <div class="footer-links">
                 <a href="https://github.com/matteso1/sentinel">GitHub</a>
                 <a href="https://github.com/matteso1/sentinel/blob/main/README.md">Docs</a>
@@ -543,15 +531,19 @@ stateDiagram-v2
             themeVariables: {
                 primaryColor: '#1a1a1a',
                 primaryTextColor: '#00ff00',
-                primaryBorderColor: '#00aa00',
-                lineColor: '#00aa00',
+                primaryBorderColor: '#00cc00',
+                lineColor: '#00cc00',
                 secondaryColor: '#0d0d0d',
                 tertiaryColor: '#1a1a1a',
                 textColor: '#e0e0e0',
                 mainBkg: '#0d0d0d',
-                nodeBorder: '#00aa00',
+                nodeBorder: '#00cc00',
                 clusterBkg: '#0a0a0a',
-                edgeLabelBackground: '#0a0a0a'
+                edgeLabelBackground: '#0a0a0a',
+                actorTextColor: '#00ff00',
+                actorBorder: '#00cc00',
+                signalColor: '#00cc00',
+                signalTextColor: '#e0e0e0'
             }
         });
     </script>
