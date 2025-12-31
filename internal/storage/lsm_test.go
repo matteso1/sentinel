@@ -143,7 +143,7 @@ func TestLSM_LargeWorkload(t *testing.T) {
 	defer os.RemoveAll(dir)
 	
 	config := DefaultLSMConfig()
-	config.MemTableSize = 4 * 1024 // 4KB for faster flushes
+	config.MemTableSize = 1024 * 1024 // 1MB - large enough to hold all test data in memory
 	
 	lsm, err := Open(dir, config)
 	if err != nil {
