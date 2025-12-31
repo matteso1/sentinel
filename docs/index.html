@@ -425,12 +425,12 @@ sequenceDiagram
 
             <div class="diagram">
                 <pre class="mermaid">
-stateDiagram-v2
-    [*] --> Follower
-    Follower --> Candidate: timeout, no heartbeat
-    Candidate --> Leader: got majority votes
-    Candidate --> Follower: someone else won
-    Leader --> Follower: found higher term
+flowchart TD
+    A[Follower] -->|timeout| B[Candidate]
+    B -->|wins vote| C[Leader]
+    B -->|loses| A
+    C -->|higher term| A
+    C -->|heartbeats| C
                 </pre>
             </div>
         </section>
@@ -497,21 +497,67 @@ stateDiagram-v2
                 <span class="component-desc">Exposes stats like throughput and latency for monitoring.</span>
             </div>
 
-            <h3>Try it</h3>
+            <h3>Getting started</h3>
+            <p>You'll need Go 1.22+ installed. That's it—no other dependencies.</p>
+
             <div class="code-block">
-                <div class="code-header">terminal</div>
-                <pre><code><span class="comment"># start server</span>
-<span class="cmd">go run</span> <span class="arg">./cmd/sentinel-server --port 9092</span>
+                <div class="code-header">step 1: clone the repo</div>
+                <pre><code><span class="cmd">git clone</span> <span class="arg">https://github.com/matteso1/sentinel.git</span>
+<span class="cmd">cd</span> <span class="arg">sentinel</span></code></pre>
+            </div>
 
-<span class="comment"># send some messages</span>
-<span class="cmd">go run</span> <span class="arg">./cmd/sentinel-cli produce -topic test -message "hello" -count 100</span>
-<span class="output"># ✓ Produced 100 record(s) to test</span>
+            <div class="code-block">
+                <div class="code-header">step 2: run the tests (optional)</div>
+                <pre><code><span class="cmd">go test</span> <span class="arg">-v ./...</span>
+<span class="output">=== RUN   TestSkipList_BasicOperations</span>
+<span class="output">--- PASS: TestSkipList_BasicOperations (0.00s)</span>
+<span class="output">=== RUN   TestBroker_ProduceConsume</span>
+<span class="output">--- PASS: TestBroker_ProduceConsume (0.17s)</span>
+<span class="output">...</span>
+<span class="output">PASS (21 tests)</span></code></pre>
+            </div>
 
-<span class="comment"># read them back</span>
-<span class="cmd">go run</span> <span class="arg">./cmd/sentinel-cli consume -topic test -from-beginning</span>
-<span class="output"># offset=0 | value=hello-0</span>
-<span class="output"># offset=1 | value=hello-1</span>
-<span class="output"># ...</span></code></pre>
+            <div class="code-block">
+                <div class="code-header">step 3: start the server</div>
+                <pre><code><span class="cmd">go run</span> <span class="arg">./cmd/sentinel-server --port 9092 --data ./data</span>
+<span class="output">Starting Sentinel server on port 9092 (data: ./data)</span>
+<span class="output">Sentinel server listening on port 9092</span></code></pre>
+            </div>
+
+            <div class="code-block">
+                <div class="code-header">step 4: produce messages (new terminal)</div>
+                <pre><code><span class="cmd">go run</span> <span class="arg">./cmd/sentinel-cli produce \</span>
+    <span class="arg">-broker localhost:9092 \</span>
+    <span class="arg">-topic orders \</span>
+    <span class="arg">-partition 0 \</span>
+    <span class="arg">-message "order:12345" \</span>
+    <span class="arg">-count 100</span>
+<span class="output">✓ Produced 100 record(s) to orders (offset: 0)</span></code></pre>
+            </div>
+
+            <div class="code-block">
+                <div class="code-header">step 5: consume messages</div>
+                <pre><code><span class="cmd">go run</span> <span class="arg">./cmd/sentinel-cli consume \</span>
+    <span class="arg">-broker localhost:9092 \</span>
+    <span class="arg">-topic orders \</span>
+    <span class="arg">-partition 0 \</span>
+    <span class="arg">-from-beginning</span>
+<span class="output">Consuming from orders (partition 0, offset 0)...</span>
+<span class="output">------------------------------------------------------------</span>
+<span class="output">offset=0 | key=(null) | value=order:12345-0</span>
+<span class="output">offset=1 | key=(null) | value=order:12345-1</span>
+<span class="output">offset=2 | key=(null) | value=order:12345-2</span>
+<span class="output">...</span>
+<span class="output">------------------------------------------------------------</span>
+<span class="output">Consumed 100 message(s)</span></code></pre>
+            </div>
+
+            <div class="code-block">
+                <div class="code-header">bonus: run benchmarks</div>
+                <pre><code><span class="cmd">go test</span> <span class="arg">-bench=. ./internal/storage/...</span>
+<span class="output">BenchmarkSkipList_Put-32    1684428    594.9 ns/op</span>
+<span class="output">BenchmarkSkipList_Get-32    3882814    257.5 ns/op</span>
+<span class="comment"># That's 1.7M writes/sec and 3.9M reads/sec</span></code></pre>
             </div>
         </section>
 
