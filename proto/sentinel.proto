@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+package sentinel;
+
+option go_package = "github.com/matteso1/sentinel/proto";
+
+// Sentinel is the main service for producing and consuming messages.
+service Sentinel {
+    // Produce sends messages to a topic partition.
+    rpc Produce(ProduceRequest) returns (ProduceResponse);
+    
+    // Consume streams messages from a topic partition.
+    rpc Consume(ConsumeRequest) returns (stream Record);
+    
+    // FetchMetadata returns cluster and topic metadata.
+    rpc FetchMetadata(MetadataRequest) returns (MetadataResponse);
+}
+
+// Record represents a single message in the log.
+message Record {
+    bytes key = 1;           // Optional message key for partitioning
+    bytes value = 2;         // Message payload
+    int64 offset = 3;        // Position in the partition log
+    int64 timestamp = 4;     // Unix timestamp in nanoseconds
+}
+
+// ProduceRequest sends a batch of records to a topic partition.
+message ProduceRequest {
+    string topic = 1;        // Topic name
+    int32 partition = 2;     // Partition number
+    repeated Record records = 3;  // Batch of records to append
+    
+    // Acknowledgment mode
+    enum Acks {
+        NONE = 0;            // Don't wait for ack (fire and forget)
+        LEADER = 1;          // Wait for leader to write
+        ALL = 2;             // Wait for all replicas to write
+    }
+    Acks acks = 4;
+}
+
+// ProduceResponse confirms records were written.
+message ProduceResponse {
+    int64 base_offset = 1;   // Offset of first record in batch
+    int64 timestamp = 2;     // Timestamp assigned by broker
+    
+    // Error per partition
+    Error error = 3;
+}
+
+// ConsumeRequest subscribes to a topic partition starting from an offset.
+message ConsumeRequest {
+    string topic = 1;
+    int32 partition = 2;
+    int64 offset = 3;        // Starting offset (0 = earliest, -1 = latest)
+    int32 max_bytes = 4;     // Max bytes to return per batch
+}
+
+// MetadataRequest asks for cluster/topic information.
+message MetadataRequest {
+    repeated string topics = 1;  // Empty = all topics
+}
+
+// MetadataResponse contains cluster and topic metadata.
+message MetadataResponse {
+    repeated Broker brokers = 1;
+    repeated TopicMetadata topics = 2;
+    int32 controller_id = 3;
+}
+
+// Broker describes a node in the cluster.
+message Broker {
+    int32 id = 1;
+    string host = 2;
+    int32 port = 3;
+}
+
+// TopicMetadata describes a topic and its partitions.
+message TopicMetadata {
+    string name = 1;
+    repeated PartitionMetadata partitions = 2;
+    Error error = 3;
+}
+
+// PartitionMetadata describes a single partition.
+message PartitionMetadata {
+    int32 partition_id = 1;
+    int32 leader = 2;        // Broker ID of leader
+    repeated int32 replicas = 3;   // All replica broker IDs
+    repeated int32 isr = 4;        // In-sync replica broker IDs
+    Error error = 5;
+}
+
+// Error represents an error code and message.
+message Error {
+    int32 code = 1;
+    string message = 2;
+}
