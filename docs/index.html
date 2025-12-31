@@ -4,29 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sentinel - Open Source Distributed Message Queue</title>
-    <meta name="description"
-        content="A high-throughput distributed log streaming engine. Like Kafka, but simpler. Built in Go.">
+    <title>Sentinel - Distributed Message Queue</title>
+    <meta name="description" content="A high-throughput distributed log streaming engine written in Go.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 
     <style>
         :root {
-            --bg-primary: #09090b;
-            --bg-secondary: #0f0f12;
-            --bg-tertiary: #18181b;
-            --bg-card: #141417;
-            --accent: #3b82f6;
-            --accent-light: #60a5fa;
-            --text-primary: #fafafa;
-            --text-secondary: #a1a1aa;
-            --text-muted: #71717a;
-            --border: rgba(255, 255, 255, 0.06);
-            --border-hover: rgba(255, 255, 255, 0.12);
+            --bg: #0a0a0a;
+            --bg-code: #0d0d0d;
+            --green: #00ff00;
+            --green-dim: #00aa00;
+            --green-muted: #006600;
+            --white: #e0e0e0;
+            --gray: #808080;
+            --dark-gray: #333333;
+            --border: #1a1a1a;
         }
 
         * {
@@ -36,17 +33,17 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg);
+            color: var(--white);
             line-height: 1.7;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 0 32px;
+            padding: 0 24px;
         }
 
         /* Navigation */
@@ -59,513 +56,231 @@
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
             font-weight: 700;
-            font-size: 1.25rem;
-            color: var(--text-primary);
+            font-size: 1rem;
+            color: var(--green);
             text-decoration: none;
-            letter-spacing: -0.02em;
-        }
-
-        .logo-mark {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, var(--accent), #8b5cf6);
-            border-radius: 8px;
         }
 
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 32px;
             align-items: center;
         }
 
         .nav-links a {
-            color: var(--text-secondary);
+            color: var(--gray);
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.2s;
+            font-size: 0.85rem;
         }
 
         .nav-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .github-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 18px;
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.875rem;
-            transition: opacity 0.2s;
-        }
-
-        .github-btn:hover {
-            opacity: 0.9;
-        }
-
-        .github-btn svg {
-            width: 18px;
-            height: 18px;
+            color: var(--green);
         }
 
         /* Hero */
         .hero {
-            padding: 100px 0 80px;
-            max-width: 800px;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            padding: 6px 14px;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 100px;
-            font-size: 0.8rem;
-            color: var(--accent-light);
-            margin-bottom: 32px;
-            font-weight: 500;
+            padding: 80px 0 60px;
         }
 
         h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            letter-spacing: -0.03em;
-            color: var(--text-primary);
-        }
-
-        .hero-description {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 40px;
-            line-height: 1.8;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 28px;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.2s;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-light);
-        }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 28px;
-            background: transparent;
-            color: var(--text-primary);
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            border: 1px solid var(--border);
-            transition: all 0.2s;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--border-hover);
-            background: var(--bg-tertiary);
-        }
-
-        /* Stats Bar */
-        .stats-bar {
-            display: flex;
-            gap: 48px;
-            padding: 48px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .stat {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .stat-value {
             font-size: 2rem;
             font-weight: 700;
-            color: var(--text-primary);
-            font-variant-numeric: tabular-nums;
+            color: var(--green);
+            margin-bottom: 24px;
+            line-height: 1.3;
         }
 
-        .stat-label {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-        }
-
-        /* Problem Section */
-        .section {
-            padding: 80px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .section-header {
-            margin-bottom: 48px;
-        }
-
-        .section-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 16px;
-        }
-
-        .section-header h2 {
-            font-size: 2.25rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 16px;
-        }
-
-        .section-header p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
+        .hero p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 32px;
             max-width: 700px;
         }
 
-        /* Comparison Table */
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 32px;
+        .hero-links {
+            display: flex;
+            gap: 24px;
         }
 
-        .comparison-table th,
-        .comparison-table td {
-            padding: 16px 24px;
-            text-align: left;
+        .hero-links a {
+            color: var(--green);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .hero-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            gap: 48px;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
         }
 
-        .comparison-table th {
-            font-weight: 600;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .comparison-table td {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .comparison-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .comparison-table td:first-child {
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-
-        .highlight-cell {
-            color: var(--accent-light) !important;
-            font-weight: 600 !important;
-        }
-
-        /* Architecture Section */
-        .architecture-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 64px;
-            align-items: start;
-        }
-
-        .arch-text h3 {
+        .stat-value {
             font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 16px;
+            font-weight: 700;
+            color: var(--green);
         }
 
-        .arch-text p {
-            color: var(--text-secondary);
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.8rem;
+            margin-top: 4px;
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--white);
             margin-bottom: 24px;
         }
 
-        .arch-list {
-            list-style: none;
-        }
-
-        .arch-list li {
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-            color: var(--text-secondary);
+        h3 {
             font-size: 0.95rem;
-        }
-
-        .arch-list li:last-child {
-            border-bottom: none;
-        }
-
-        .arch-list strong {
-            color: var(--text-primary);
-        }
-
-        .arch-diagram {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 40px;
-        }
-
-        .arch-flow {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .arch-row {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-        }
-
-        .arch-box {
-            padding: 14px 24px;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            text-align: center;
-        }
-
-        .arch-box.producer {
-            border-color: #22c55e;
-            color: #4ade80;
-        }
-
-        .arch-box.broker {
-            border-color: var(--accent);
-            color: var(--accent-light);
-            background: rgba(59, 130, 246, 0.1);
-        }
-
-        .arch-box.consumer {
-            border-color: #f59e0b;
-            color: #fbbf24;
-        }
-
-        .arch-box.storage {
-            border-color: #8b5cf6;
-            color: #a78bfa;
-        }
-
-        .arch-arrow {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-        }
-
-        .arch-partition-row {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 8px;
-        }
-
-        .arch-partition {
-            padding: 8px 16px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        /* Features Grid */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .feature-card {
-            padding: 32px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            transition: border-color 0.2s;
-        }
-
-        .feature-card:hover {
-            border-color: var(--border-hover);
-        }
-
-        .feature-card h3 {
-            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 12px;
+            color: var(--green);
+            margin: 32px 0 16px;
         }
 
-        .feature-card p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.7;
+        p {
+            color: var(--gray);
+            margin-bottom: 16px;
         }
 
-        /* Code Block */
-        .code-section {
-            margin-top: 48px;
-        }
-
-        .code-block {
-            background: var(--bg-secondary);
+        /* Mermaid Diagrams */
+        .diagram {
+            background: var(--bg-code);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            padding: 32px;
+            margin: 24px 0;
+            overflow-x: auto;
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            margin: 24px 0;
             overflow: hidden;
         }
 
         .code-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 20px;
-            background: var(--bg-tertiary);
+            padding: 12px 16px;
             border-bottom: 1px solid var(--border);
-        }
-
-        .code-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .code-dot.red {
-            background: #ff5f57;
-        }
-
-        .code-dot.yellow {
-            background: #febc2e;
-        }
-
-        .code-dot.green {
-            background: #28c840;
-        }
-
-        .code-title {
-            margin-left: 12px;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            font-family: 'JetBrains Mono', monospace;
+            color: var(--gray);
+            font-size: 0.75rem;
         }
 
         pre {
-            padding: 24px;
+            padding: 20px;
             overflow-x: auto;
-            font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
             line-height: 1.8;
         }
 
-        .code-comment {
-            color: #6b7280;
+        .comment {
+            color: var(--green-muted);
         }
 
-        .code-keyword {
-            color: #c084fc;
+        .cmd {
+            color: var(--green);
         }
 
-        .code-string {
-            color: #86efac;
+        .arg {
+            color: var(--white);
         }
 
-        .code-number {
-            color: #fbbf24;
+        .string {
+            color: #98c379;
         }
 
-        /* Use Cases */
-        .use-cases-grid {
+        .output {
+            color: var(--gray);
+        }
+
+        /* Feature List */
+        .features {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr 1fr;
             gap: 24px;
         }
 
-        .use-case {
-            padding: 32px;
-            background: var(--bg-card);
+        .feature {
+            padding: 20px;
             border: 1px solid var(--border);
-            border-radius: 12px;
         }
 
-        .use-case h4 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .use-case p {
-            color: var(--text-secondary);
+        .feature h4 {
+            color: var(--white);
             font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
         }
 
-        /* CTA */
-        .cta {
-            padding: 100px 0;
-            text-align: center;
+        .feature p {
+            font-size: 0.8rem;
+            margin: 0;
         }
 
-        .cta h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            letter-spacing: -0.02em;
+        /* Components List */
+        .components {
+            font-size: 0.85rem;
         }
 
-        .cta p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 32px;
+        .component {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 24px;
+        }
+
+        .component:last-child {
+            border-bottom: none;
+        }
+
+        .component-name {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .component-desc {
+            color: var(--gray);
         }
 
         /* Footer */
         footer {
-            padding: 32px 0;
-            border-top: 1px solid var(--border);
+            padding: 40px 0;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            color: var(--text-muted);
-            font-size: 0.875rem;
+            color: var(--gray);
+            font-size: 0.8rem;
         }
 
         footer a {
-            color: var(--text-secondary);
+            color: var(--gray);
             text-decoration: none;
         }
 
         footer a:hover {
-            color: var(--text-primary);
+            color: var(--green);
         }
 
         .footer-links {
@@ -578,29 +293,18 @@
                 display: none;
             }
 
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .stats-bar {
+            .stats {
                 flex-wrap: wrap;
-                gap: 32px;
+                gap: 24px;
             }
 
-            .architecture-content {
+            .features {
                 grid-template-columns: 1fr;
             }
 
-            .features-grid {
+            .component {
                 grid-template-columns: 1fr;
-            }
-
-            .use-cases-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
+                gap: 8px;
             }
         }
     </style>
@@ -609,298 +313,248 @@
 <body>
     <div class="container">
         <nav>
-            <a href="#" class="logo">
-                <div class="logo-mark"></div>
-                Sentinel
-            </a>
+            <a href="#" class="logo">sentinel</a>
             <div class="nav-links">
-                <a href="#why">Why Sentinel</a>
-                <a href="#architecture">Architecture</a>
-                <a href="#features">Features</a>
-                <a href="https://github.com/matteso1/sentinel" target="_blank">Documentation</a>
-                <a href="https://github.com/matteso1/sentinel" target="_blank" class="github-btn">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                    </svg>
-                    GitHub
-                </a>
+                <a href="#architecture">architecture</a>
+                <a href="#components">components</a>
+                <a href="#quickstart">quickstart</a>
+                <a href="https://github.com/matteso1/sentinel" target="_blank">github</a>
             </div>
         </nav>
 
         <section class="hero">
-            <div class="hero-badge">Open Source · MIT License</div>
-            <h1>The message queue you can actually understand.</h1>
-            <p class="hero-description">
-                Sentinel is a distributed log streaming engine built from scratch in Go.
-                It delivers Kafka-style semantics—topics, partitions, consumer groups—without
-                the operational complexity of running a JVM cluster. Perfect for developers
-                who need reliable message passing without the infrastructure overhead.
+            <h1>Distributed log streaming engine.</h1>
+            <p>
+                A high-throughput message queue built from scratch in Go. Custom LSM-tree
+                storage engine, Raft-inspired consensus, gRPC streaming API. Kafka-style
+                semantics without the JVM complexity.
             </p>
-            <div class="hero-buttons">
-                <a href="https://github.com/matteso1/sentinel" class="btn-primary">
-                    View Source Code
-                </a>
-                <a href="#quickstart" class="btn-secondary">
-                    Quick Start Guide
-                </a>
+            <div class="hero-links">
+                <a href="https://github.com/matteso1/sentinel">→ source code</a>
+                <a href="https://github.com/matteso1/sentinel/blob/main/README.md">→ documentation</a>
             </div>
         </section>
 
-        <div class="stats-bar">
-            <div class="stat">
+        <div class="stats">
+            <div>
                 <div class="stat-value">1.7M</div>
-                <div class="stat-label">writes per second</div>
+                <div class="stat-label">writes/sec</div>
             </div>
-            <div class="stat">
+            <div>
                 <div class="stat-value">3.9M</div>
-                <div class="stat-label">reads per second</div>
+                <div class="stat-label">reads/sec</div>
             </div>
-            <div class="stat">
+            <div>
                 <div class="stat-value">5,600+</div>
                 <div class="stat-label">lines of Go</div>
             </div>
-            <div class="stat">
+            <div>
                 <div class="stat-value">21</div>
-                <div class="stat-label">tests passing</div>
+                <div class="stat-label">tests</div>
             </div>
         </div>
 
-        <section class="section" id="why">
-            <div class="section-header">
-                <div class="section-label">The Problem</div>
-                <h2>Message queues shouldn't require a PhD to operate.</h2>
-                <p>
-                    Kafka is powerful but comes with significant operational overhead.
-                    ZooKeeper coordination, JVM tuning, broker configuration, partition rebalancing—
-                    it's a lot to manage when you just want to pass messages between services.
-                </p>
+        <section id="architecture">
+            <h2>Architecture</h2>
+            <p>
+                Producers send records to topic partitions. The broker persists data
+                through an LSM-tree storage engine and replicates via Raft consensus.
+                Consumers read from partitions at their own pace.
+            </p>
+
+            <div class="diagram">
+                <pre class="mermaid">
+graph LR
+    P[Producer] --> B[Broker]
+    B --> C[Consumer]
+    B --> S[LSM Storage]
+    S --> WAL[Write-Ahead Log]
+    S --> MT[MemTable]
+    MT --> SST[SSTables]
+                </pre>
             </div>
 
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Consideration</th>
-                        <th>Apache Kafka</th>
-                        <th>Sentinel</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Runtime</td>
-                        <td>JVM (requires Java, heap tuning)</td>
-                        <td class="highlight-cell">Single Go binary</td>
-                    </tr>
-                    <tr>
-                        <td>Coordination</td>
-                        <td>ZooKeeper or KRaft cluster</td>
-                        <td class="highlight-cell">Built-in Raft consensus</td>
-                    </tr>
-                    <tr>
-                        <td>Configuration</td>
-                        <td>100+ broker properties</td>
-                        <td class="highlight-cell">Sensible defaults, 2 flags</td>
-                    </tr>
-                    <tr>
-                        <td>Memory footprint</td>
-                        <td>2-4 GB minimum heap</td>
-                        <td class="highlight-cell">~50 MB typical</td>
-                    </tr>
-                    <tr>
-                        <td>Learning curve</td>
-                        <td>Weeks to production-ready</td>
-                        <td class="highlight-cell">Minutes to running</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+            <h3>Write Path</h3>
+            <p>
+                Records are first written to a write-ahead log for durability, then
+                inserted into an in-memory skip list. Background compaction flushes
+                data to immutable SSTables on disk.
+            </p>
 
-        <section class="section" id="architecture">
-            <div class="section-header">
-                <div class="section-label">Architecture</div>
-                <h2>Built on proven distributed systems primitives.</h2>
-                <p>
-                    Sentinel combines a custom LSM-tree storage engine with Raft-inspired
-                    consensus to deliver durability and fault tolerance. Every design decision
-                    prioritizes simplicity without sacrificing correctness.
-                </p>
+            <div class="diagram">
+                <pre class="mermaid">
+sequenceDiagram
+    participant Client
+    participant Broker
+    participant WAL
+    participant MemTable
+    participant SSTable
+
+    Client->>Broker: Produce(topic, records)
+    Broker->>WAL: Append(entry)
+    WAL-->>Broker: Success
+    Broker->>MemTable: Put(key, value)
+    Note over MemTable: Skip list O(log n)
+    MemTable-->>Broker: Offset
+    Broker-->>Client: ProduceResponse
+
+    Note over MemTable,SSTable: Background flush
+    MemTable->>SSTable: Flush when full
+                </pre>
             </div>
 
-            <div class="architecture-content">
-                <div class="arch-text">
-                    <h3>Write Path</h3>
-                    <p>
-                        When a producer sends a message, it's immediately written to a
-                        write-ahead log (WAL) for durability, then inserted into an in-memory
-                        skip list for fast reads. Background compaction flushes data to
-                        immutable SSTables on disk.
-                    </p>
+            <h3>Raft Consensus</h3>
+            <p>
+                Leader election uses randomized timeouts to prevent split-brain.
+                Log entries replicate via AppendEntries RPC. Commits advance after
+                majority acknowledgment.
+            </p>
 
-                    <ul class="arch-list">
-                        <li><strong>Skip List Memtable</strong> — O(log n) concurrent inserts with RWMutex protection
-                        </li>
-                        <li><strong>Write-Ahead Log</strong> — CRC32 checksums, configurable fsync modes</li>
-                        <li><strong>SSTable Format</strong> — Block-based layout with binary search index</li>
-                        <li><strong>Background Compaction</strong> — Automatic merging to reclaim space</li>
-                    </ul>
-
-                    <h3 style="margin-top: 32px;">Consensus</h3>
-                    <p>
-                        Leader election uses randomized timeouts to prevent split-brain scenarios.
-                        Log entries are replicated via AppendEntries RPC, with commits advancing
-                        only after majority acknowledgment.
-                    </p>
-                </div>
-
-                <div class="arch-diagram">
-                    <div class="arch-flow">
-                        <div class="arch-row">
-                            <div class="arch-box producer">Producer</div>
-                            <span class="arch-arrow">→</span>
-                            <div class="arch-box broker">Sentinel Broker</div>
-                            <span class="arch-arrow">→</span>
-                            <div class="arch-box consumer">Consumer</div>
-                        </div>
-                        <div class="arch-row">
-                            <div class="arch-box storage">LSM Storage Engine</div>
-                        </div>
-                        <div class="arch-partition-row">
-                            <div class="arch-partition">Partition 0</div>
-                            <div class="arch-partition">Partition 1</div>
-                            <div class="arch-partition">Partition 2</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="diagram">
+                <pre class="mermaid">
+stateDiagram-v2
+    [*] --> Follower
+    Follower --> Candidate: Election timeout
+    Candidate --> Leader: Majority votes
+    Candidate --> Follower: Higher term discovered
+    Leader --> Follower: Higher term discovered
+    Leader --> Leader: Heartbeats
+                </pre>
             </div>
         </section>
 
-        <section class="section" id="features">
-            <div class="section-header">
-                <div class="section-label">Features</div>
-                <h2>Everything you need, nothing you don't.</h2>
-            </div>
+        <section id="components">
+            <h2>Components</h2>
 
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3>Custom Storage Engine</h3>
-                    <p>Hand-written LSM-tree with skip list, SSTables, and write-ahead logging. CRC32 checksums ensure
-                        data integrity. Crash recovery rebuilds state from the WAL.</p>
+            <div class="components">
+                <div class="component">
+                    <span class="component-name">internal/storage/skiplist.go</span>
+                    <span class="component-desc">O(log n) concurrent skip list with RWMutex. XorShift64 PRNG for level
+                        generation.</span>
                 </div>
-                <div class="feature-card">
-                    <h3>gRPC Streaming API</h3>
-                    <p>Protobuf-defined service with Produce, Consume (server streaming), and FetchMetadata RPCs.
-                        Efficient binary serialization with strong typing.</p>
+                <div class="component">
+                    <span class="component-name">internal/storage/wal.go</span>
+                    <span class="component-desc">Write-ahead log with CRC32 checksums. Configurable sync modes. Crash
+                        recovery.</span>
                 </div>
-                <div class="feature-card">
-                    <h3>Topics and Partitions</h3>
-                    <p>Kafka-style data organization. Messages are grouped by topic and distributed across partitions.
-                        Hash or round-robin partitioning strategies.</p>
+                <div class="component">
+                    <span class="component-name">internal/storage/sstable.go</span>
+                    <span class="component-desc">Block-based sorted string tables. Binary search index. Key range
+                        tracking.</span>
                 </div>
-                <div class="feature-card">
-                    <h3>Consumer Groups</h3>
-                    <p>Automatic partition assignment across group members. Round-robin rebalancing when consumers join
-                        or leave. Offset tracking for exactly-once semantics.</p>
+                <div class="component">
+                    <span class="component-name">internal/storage/lsm.go</span>
+                    <span class="component-desc">LSM coordinator. Memtable rotation, background flush, multi-level
+                        storage.</span>
                 </div>
-                <div class="feature-card">
-                    <h3>Raft Consensus</h3>
-                    <p>Leader election with randomized timeouts. AppendEntries RPC for log replication. Commit index
-                        advances after majority acknowledgment.</p>
+                <div class="component">
+                    <span class="component-name">internal/broker/broker.go</span>
+                    <span class="component-desc">Topic/partition management. Produce and consume operations. Persistence
+                        layer.</span>
                 </div>
-                <div class="feature-card">
-                    <h3>Prometheus Metrics</h3>
-                    <p>Built-in /metrics endpoint exposing throughput, latency, error rates, and partition lag. Ready
-                        for Grafana dashboards.</p>
+                <div class="component">
+                    <span class="component-name">internal/broker/consumer_group.go</span>
+                    <span class="component-desc">Round-robin partition assignment. Offset tracking. Heartbeat and
+                        rebalancing.</span>
+                </div>
+                <div class="component">
+                    <span class="component-name">internal/raft/node.go</span>
+                    <span class="component-desc">Raft state machine. Follower/Candidate/Leader states. Election
+                        timer.</span>
+                </div>
+                <div class="component">
+                    <span class="component-name">internal/raft/replication.go</span>
+                    <span class="component-desc">AppendEntries RPC. Conflict detection. Commit index advancement.</span>
+                </div>
+                <div class="component">
+                    <span class="component-name">internal/server/grpc_server.go</span>
+                    <span class="component-desc">Protobuf service. Produce, Consume (streaming), FetchMetadata
+                        RPCs.</span>
+                </div>
+                <div class="component">
+                    <span class="component-name">internal/metrics/prometheus.go</span>
+                    <span class="component-desc">Counters, gauges, latency tracking. /metrics endpoint for
+                        Prometheus.</span>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="quickstart">
-            <div class="section-header">
-                <div class="section-label">Quick Start</div>
-                <h2>From zero to streaming in under a minute.</h2>
+        <section id="quickstart">
+            <h2>Quick Start</h2>
+
+            <div class="code-block">
+                <div class="code-header">terminal</div>
+                <pre><code><span class="comment"># clone</span>
+<span class="cmd">git clone</span> <span class="arg">https://github.com/matteso1/sentinel.git</span>
+<span class="cmd">cd</span> <span class="arg">sentinel</span>
+
+<span class="comment"># start server</span>
+<span class="cmd">go run</span> <span class="arg">./cmd/sentinel-server --port 9092 --data ./data</span>
+<span class="output"># Sentinel server listening on port 9092</span>
+
+<span class="comment"># produce</span>
+<span class="cmd">go run</span> <span class="arg">./cmd/sentinel-cli produce -topic orders -message "order:123" -count 100</span>
+<span class="output"># ✓ Produced 100 record(s) to orders (offset: 0)</span>
+
+<span class="comment"># consume</span>
+<span class="cmd">go run</span> <span class="arg">./cmd/sentinel-cli consume -topic orders -from-beginning</span>
+<span class="output"># offset=0 | key=(null) | value=order:123-0</span>
+<span class="output"># offset=1 | key=(null) | value=order:123-1</span>
+<span class="output"># ...</span></code></pre>
             </div>
 
-            <div class="code-section">
-                <div class="code-block">
-                    <div class="code-header">
-                        <div class="code-dot red"></div>
-                        <div class="code-dot yellow"></div>
-                        <div class="code-dot green"></div>
-                        <span class="code-title">terminal</span>
-                    </div>
-                    <pre><code><span class="code-comment"># Clone and build</span>
-git clone https://github.com/matteso1/sentinel.git
-cd sentinel
-
-<span class="code-comment"># Start the server</span>
-go run ./cmd/sentinel-server --port <span class="code-number">9092</span> --data ./data
-<span class="code-comment"># Sentinel server listening on port 9092</span>
-
-<span class="code-comment"># In another terminal: produce messages</span>
-go run ./cmd/sentinel-cli produce \
-    -topic orders \
-    -message <span class="code-string">"order:12345"</span> \
-    -count <span class="code-number">100</span>
-<span class="code-comment"># ✓ Produced 100 record(s) to orders (offset: 0)</span>
-
-<span class="code-comment"># Consume messages</span>
-go run ./cmd/sentinel-cli consume \
-    -topic orders \
-    -from-beginning
-<span class="code-comment"># offset=0 | key=(null) | value=order:12345-0</span>
-<span class="code-comment"># offset=1 | key=(null) | value=order:12345-1</span>
-<span class="code-comment"># ...</span></code></pre>
-                </div>
-            </div>
-        </section>
-
-        <section class="section">
-            <div class="section-header">
-                <div class="section-label">Use Cases</div>
-                <h2>Built for real-world message passing.</h2>
+            <h3>Run Tests</h3>
+            <div class="code-block">
+                <div class="code-header">terminal</div>
+                <pre><code><span class="cmd">go test</span> <span class="arg">-v ./...</span>
+<span class="output"># === RUN   TestSkipList_BasicOperations</span>
+<span class="output"># --- PASS: TestSkipList_BasicOperations (0.00s)</span>
+<span class="output"># === RUN   TestBroker_ProduceConsume</span>
+<span class="output"># --- PASS: TestBroker_ProduceConsume (0.17s)</span>
+<span class="output"># === RUN   TestNode_BecomesLeaderWithNoPeers</span>
+<span class="output"># --- PASS: TestNode_BecomesLeaderWithNoPeers (0.20s)</span>
+<span class="output"># ...</span>
+<span class="output"># PASS</span>
+<span class="output"># ok  github.com/matteso1/sentinel</span></code></pre>
             </div>
 
-            <div class="use-cases-grid">
-                <div class="use-case">
-                    <h4>Event Sourcing</h4>
-                    <p>Store all state changes as an append-only log. Replay events to rebuild application state.
-                        Perfect for audit trails and debugging.</p>
-                </div>
-                <div class="use-case">
-                    <h4>Microservice Communication</h4>
-                    <p>Decouple services with asynchronous messaging. Producers and consumers evolve independently. No
-                        direct RPC dependencies.</p>
-                </div>
-                <div class="use-case">
-                    <h4>Real-time Data Pipelines</h4>
-                    <p>Ingest clickstreams, IoT telemetry, or application logs. Buffer data for downstream analytics.
-                        Handle traffic spikes gracefully.</p>
-                </div>
-                <div class="use-case">
-                    <h4>Task Queues</h4>
-                    <p>Distribute work across worker processes. Consumer groups ensure each task is processed once.
-                        Retry failed jobs by seeking to earlier offsets.</p>
-                </div>
+            <h3>Benchmarks</h3>
+            <div class="code-block">
+                <div class="code-header">terminal</div>
+                <pre><code><span class="cmd">go test</span> <span class="arg">-bench=. ./internal/storage/...</span>
+<span class="output"># BenchmarkSkipList_Put-32    1684428    594.9 ns/op   (1.7M ops/sec)</span>
+<span class="output"># BenchmarkSkipList_Get-32    3882814    257.5 ns/op   (3.9M ops/sec)</span></code></pre>
             </div>
-        </section>
-
-        <section class="cta">
-            <h2>Open source. MIT licensed. Free forever.</h2>
-            <p>Built by developers, for developers. Contributions welcome.</p>
-            <a href="https://github.com/matteso1/sentinel" class="btn-primary">
-                View on GitHub
-            </a>
         </section>
 
         <footer>
             <div>Built by <a href="https://nilsmatteson.com" target="_blank">Nils Matteson</a></div>
             <div class="footer-links">
-                <a href="https://github.com/matteso1/sentinel" target="_blank">GitHub</a>
-                <a href="https://github.com/matteso1/sentinel/blob/main/README.md" target="_blank">Documentation</a>
-                <a href="https://github.com/matteso1/sentinel/issues" target="_blank">Issues</a>
+                <a href="https://github.com/matteso1/sentinel">GitHub</a>
+                <a href="https://github.com/matteso1/sentinel/blob/main/README.md">Docs</a>
             </div>
         </footer>
     </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                primaryColor: '#1a1a1a',
+                primaryTextColor: '#00ff00',
+                primaryBorderColor: '#00aa00',
+                lineColor: '#00aa00',
+                secondaryColor: '#0d0d0d',
+                tertiaryColor: '#1a1a1a',
+                textColor: '#e0e0e0',
+                mainBkg: '#0d0d0d',
+                nodeBorder: '#00aa00',
+                clusterBkg: '#0a0a0a',
+                edgeLabelBackground: '#0a0a0a'
+            }
+        });
+    </script>
 </body>
 
 </html>
