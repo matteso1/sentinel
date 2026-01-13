@@ -2,9 +2,10 @@
 
 **A high-throughput distributed log streaming engine written in Go**
 
-[![Tests](https://img.shields.io/badge/tests-21%20passing-brightgreen)]()
+[![CI](https://github.com/matteso1/sentinel/actions/workflows/ci.yml/badge.svg)](https://github.com/matteso1/sentinel/actions/workflows/ci.yml)
+[![Tests](https://img.shields.io/badge/tests-32%20passing-brightgreen)]()
 [![Go](https://img.shields.io/badge/Go-1.22+-00ADD8?logo=go)]()
-[![Lines of Code](https://img.shields.io/badge/lines-5600+-blue)]()
+[![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 Sentinel is a Kafka-inspired distributed message queue built from the ground up. It features a custom LSM-tree storage engine, gRPC-based wire protocol, topic/partition data model, Raft-inspired consensus for fault tolerance, and Prometheus-compatible observability.
 
