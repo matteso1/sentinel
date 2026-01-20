@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/matteso1/sentinel/actions/workflows/ci.yml/badge.svg)](https://github.com/matteso1/sentinel/actions/workflows/ci.yml)
 [![Tests](https://img.shields.io/badge/tests-32%20passing-brightgreen)]()
-[![Go](https://img.shields.io/badge/Go-1.22+-00ADD8?logo=go)]()
+[![Go](https://img.shields.io/badge/Go-1.24+-00ADD8?logo=go)]()
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 Sentinel is a Kafka-inspired distributed message queue built from the ground up. It features a custom LSM-tree storage engine, gRPC-based wire protocol, topic/partition data model, Raft-inspired consensus for fault tolerance, and Prometheus-compatible observability.
@@ -244,7 +244,7 @@ Implementation of the Raft distributed consensus algorithm:
 
 ### Prerequisites
 
-- Go 1.22 or later
+- Go 1.24 or later
 
 ### Run the Server
 

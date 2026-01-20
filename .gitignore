@@ -28,3 +28,5 @@ Thumbs.db
 *.sst
 *.log
 data/
+demo_data/
+demo_data2/

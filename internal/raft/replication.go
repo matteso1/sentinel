@@ -1,5 +1,7 @@
 package raft
 
+import "time"
+
 // AppendEntriesRequest is sent by leaders to replicate log entries and as heartbeats.
 type AppendEntriesRequest struct {
 	Term         uint64
@@ -102,7 +104,7 @@ func (n *Node) handleAppendEntries(req AppendEntriesRequest) {
 	}
 
 	n.setState(Follower)
-	n.lastHeartbeat = n.lastHeartbeat // Reset election timeout
+	n.lastHeartbeat = time.Now() // Reset election timeout
 
 	// Check if log contains an entry at prevLogIndex with prevLogTerm
 	if req.PrevLogIndex > 0 {

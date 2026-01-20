@@ -2,6 +2,7 @@ package raft
 
 import (
 	"sync/atomic"
+	"time"
 )
 
 // VoteRequest is sent by candidates to request votes.
@@ -137,7 +138,7 @@ func (n *Node) handleVoteRequest(req VoteRequest) {
 	if (n.votedFor == "" || n.votedFor == req.CandidateID) && logUpToDate {
 		n.votedFor = req.CandidateID
 		response.VoteGranted = true
-		n.lastHeartbeat = n.lastHeartbeat // Reset election timeout
+		n.lastHeartbeat = time.Now() // Reset election timeout
 	}
 
 	response.Term = n.currentTerm

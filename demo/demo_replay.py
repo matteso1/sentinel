@@ -20,7 +20,9 @@ from pathlib import Path
 # Configuration
 SENTINEL_HOST = "localhost"
 SENTINEL_PORT = 9092
-DATA_DIR = Path(r"C:\Users\nilsm\Desktop\VSCODE PROJECTS\resume\madison-bus-eta\backend\collected_data")
+# Set DATA_DIR to your local madison-bus-eta collected_data directory
+# Example: DATA_DIR = Path("/path/to/madison-bus-eta/backend/collected_data")
+DATA_DIR = Path(os.environ.get("SENTINEL_DEMO_DATA_DIR", "./sample_data"))
 TOPIC = "bus-predictions"
 
 def run_sentinel_cli(command, *args):

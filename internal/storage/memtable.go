@@ -9,11 +9,11 @@ import (
 // MemTable is an in-memory data structure that buffers writes before flushing to disk.
 // It wraps a skip list and tracks size for flush threshold decisions.
 type MemTable struct {
-	sl         *SkipList
-	id         uint64        // Unique ID for this memtable
-	createdAt  time.Time     // When this memtable was created
-	frozen     atomic.Bool   // Whether this memtable is frozen (no more writes)
-	mu         sync.RWMutex  // Protects concurrent access
+	sl        *SkipList
+	id        uint64       // Unique ID for this memtable
+	createdAt time.Time    // When this memtable was created
+	frozen    atomic.Bool  // Whether this memtable is frozen (no more writes)
+	mu        sync.RWMutex // Protects concurrent access
 }
 
 // MemTableConfig configures memtable behavior.
@@ -47,7 +47,7 @@ func (m *MemTable) Put(key, value []byte) error {
 	}
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	
+
 	timestamp := uint64(time.Now().UnixNano())
 	m.sl.Put(key, value, timestamp)
 	return nil
@@ -58,7 +58,7 @@ func (m *MemTable) Put(key, value []byte) error {
 func (m *MemTable) Get(key []byte) ([]byte, bool) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
-	
+
 	value, _, found := m.sl.Get(key)
 	return value, found
 }
@@ -70,7 +70,7 @@ func (m *MemTable) Delete(key []byte) error {
 	}
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	
+
 	timestamp := uint64(time.Now().UnixNano())
 	m.sl.Delete(key, timestamp)
 	return nil
@@ -116,11 +116,11 @@ func (m *MemTable) NewIterator() *Iterator {
 func (m *MemTable) Entries() []*Entry {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
-	
+
 	entries := make([]*Entry, 0, m.sl.Count())
 	iter := m.sl.NewIterator()
 	defer iter.Close()
-	
+
 	for iter.Next() {
 		entries = append(entries, iter.Entry())
 	}
