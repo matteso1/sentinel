@@ -3,7 +3,7 @@
 **A high-throughput distributed log streaming engine written in Go**
 
 [![CI](https://github.com/matteso1/sentinel/actions/workflows/ci.yml/badge.svg)](https://github.com/matteso1/sentinel/actions/workflows/ci.yml)
-[![Tests](https://img.shields.io/badge/tests-32%20passing-brightgreen)]()
+[![Tests](https://img.shields.io/badge/tests-35%20passing-brightgreen)]()
 [![Go](https://img.shields.io/badge/Go-1.24+-00ADD8?logo=go)]()
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
